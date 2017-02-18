@@ -27,8 +27,6 @@ var getContentMiddleware = function(req, res, next) {
       next();
     });
   }
-
- 
 }
 
 router.get('/', getContentMiddleware, function(req, res, next) {
