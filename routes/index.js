@@ -5,7 +5,7 @@ var cache = require('memory-cache');
 
 var getContent = function() {
   return new Promise((resolve, reject) => {
-    request('https://api.myjson.com/bins/1gfc5h', (err, res, body) => {
+    request('https://api.myjson.com/bins/19j51l', (err, res, body) => {
       if (err) {
         reject(err); return;
       }
@@ -30,7 +30,17 @@ var getContentMiddleware = function(req, res, next) {
 }
 
 router.get('/', getContentMiddleware, function(req, res, next) {
-  res.render('index', { title: 'Express'});
+  console.log(res.locals.content)
+  res.render('index', { 
+    data: { 
+      title: 'Express',
+      message: "smonk wede",
+      content: JSON.parse(res.locals.content)["posts"]
+    },
+    vue: {
+        components: ['teaser']
+    }
+  });
 });
 
 module.exports = router;
